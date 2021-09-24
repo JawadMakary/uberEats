@@ -10,46 +10,6 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-const styles = StyleSheet.create({
-  searchContainer: {
-    marginTop: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#eee",
-    borderRadius: 20,
-  },
-  searchInput: {
-    flexDirection: "row",
-    fontWeight: "700",
-    paddingVertical: 13,
-    paddingHorizontal: 15,
-    flex: 1,
-  },
-  searchButton: {
-    flexDirection: "row",
-    marginRight: 8,
-    backgroundColor: "white",
-    padding: 9,
-    borderRadius: 30,
-    alignItems: "center",
-    fontFamily: "Nunito",
-  },
-  dropDownContainer: {
-    width: "100%",
-    paddingLeft: 1,
-  },
-  dropDown: {
-    backgroundColor: "#eee",
-    borderRadius: 16,
-  },
-  dropDownItem: {
-    paddingHorizontal: 14,
-    paddingVertical: 13,
-    borderBottomColor: "#fafafa",
-    borderBottomWidth: 1,
-  },
-});
-
 const SearchBar = ({ setCity }) => {
   const [input, setInput] = useState("");
   const [locations, setLocations] = useState(null);
@@ -97,7 +57,7 @@ const SearchBar = ({ setCity }) => {
         <TouchableOpacity onPress={() => selectLocation(input)}>
           <View style={styles.searchButton}>
             <AntDesign name="clockcircle" size={11} />
-            <Text style={{ marginLeft: 10, fontFamily: "Nunito" }}>Search</Text>
+            <Text style={{ marginLeft: 10 }}>Search</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -127,3 +87,43 @@ const SearchDropdown = ({ list, setCity }) => {
 };
 
 export default SearchBar;
+
+const styles = StyleSheet.create({
+  searchContainer: {
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#eee",
+    borderRadius: 20,
+  },
+  searchInput: {
+    flexDirection: "row",
+    fontWeight: "700",
+    paddingVertical: 13,
+    paddingHorizontal: 15,
+    flex: 1,
+  },
+  searchButton: {
+    flexDirection: "row",
+    marginRight: 8,
+    backgroundColor: "white",
+    padding: 9,
+    borderRadius: 30,
+    alignItems: "center",
+    fontFamily: "Nunito",
+  },
+  dropDownContainer: {
+    width: "100%",
+    paddingLeft: 1,
+  },
+  dropDown: {
+    backgroundColor: "#eee",
+    borderRadius: 16,
+  },
+  dropDownItem: {
+    paddingHorizontal: 14,
+    paddingVertical: 13,
+    borderBottomColor: "#fafafa",
+    borderBottomWidth: 1,
+  },
+});

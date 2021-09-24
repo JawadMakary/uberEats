@@ -10,14 +10,13 @@ import RestaurantItems, {
 export default function Home() {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [activeTab, setActiveTab] = useState("Delivery");
-
+  const [city, setCity] = useState("San Fransisco");
   // Yelp API:
   const YELP_API_KEY =
     "Go6igxY9oFVd8Uk5IkhGzTwjvSRU6y-y2SB4XN1SeN9N6peg8MHpe6WA__HeweY8X_6wrIXUxj8oKQ2dD8ZXw-pZpFFvLRsry0pOfBxMRUwVdvGjwj2KLwuYsFNMYXYx";
   // get yelpapi -> getjson from hip -> set json data in restaurant data
   const getRestaurantsFromYelp = () => {
-    const yelpUrl =
-      "https://api.yelp.com/v3/businesses/search?term=restaurants&location=SanDiego";
+    const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`;
 
     const apiOptions = {
       headers: {
@@ -33,12 +32,12 @@ export default function Home() {
   };
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, []);
+  }, [city]);
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "#fff", padding: 15 }}>
         <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        <SearchBar />
+        <SearchBar setCity={setCity} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
