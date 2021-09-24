@@ -25,14 +25,20 @@ export default function Home() {
     };
     return fetch(yelpUrl, apiOptions)
       .then((res) => res.json())
-      .then((json) => setRestaurantData(json.businesses))
+      .then((json) =>
+        setRestaurantData(
+          json.businesses.filter((business) =>
+            business.transactions.includes(activeTab.toLowerCase())
+          )
+        )
+      )
       .catch((err) => {
         console.log(err);
       });
   };
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, [city]);
+  }, [city, activeTab]);
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "#fff", padding: 15 }}>
