@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { Divider } from "react-native-elements";
 const foods = [
   {
     title: "Lasagna",
@@ -59,6 +60,7 @@ export default function MenuItems() {
             <FoodInfo food={food} />
             <FoodImage food={food} />
           </View>
+          <Divider width={0.5} orientation={"vertical"} />
         </View>
       ))}
     </ScrollView>
