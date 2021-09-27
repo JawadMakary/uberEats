@@ -1,19 +1,9 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 
-export default function About() {
-  const yelpRestaurantInfo = {
-    name: "test",
-    image:
-      "https://th.bing.com/th/id/R.d8c88f892c58773f1d09eac0b5247d9f?rik=04nGhl484F1QjQ&pid=ImgRaw&r=0",
-
-    price: "$",
-    reviews: "1",
-    rating: 5,
-    categories: [{ title: "thai" }, { title: "yesy123" }],
-  };
+export default function About(props) {
   const { name, image, price, reviews, rating, categories } =
-    yelpRestaurantInfo;
+    props.route.params;
   const formattedCategories = categories
     .map((category) => category.title)
     .join(" - ");

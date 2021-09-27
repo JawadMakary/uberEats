@@ -7,7 +7,7 @@ import MenuItems from "../components/restaurantDetails/MenuItems";
 export default function RestaurantDetail({ route, navigation }) {
   return (
     <View>
-      <About />
+      <About route={route} />
       <Divider width={1.8} style={{ marginVertical: 20 }} />
       <MenuItems />
     </View>
