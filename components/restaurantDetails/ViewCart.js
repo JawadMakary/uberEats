@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
 export default function ViewCart() {
   const [modalVisible, setModalVisible] = useState(false);
-  const items = useSelector((state) => state.cartReducer.selectedItems.items);
+  const { items, restaurantName } = useSelector(
+    (state) => state.cartReducer.selectedItems
+  );
   // TOTAL -> map through items and get price as $1.50,$2 etc and trnsform it to 1.50 ( removing $ sign as well)--> we will end up with an array for numbers then we call the reduce fct to calculate the total
   const total = items
     .map((item) => Number(item.price.replace("$", "")))
@@ -12,6 +14,36 @@ export default function ViewCart() {
   const totalUSD = total.toLocaleString("en", {
     style: "currency",
     currency: "USD",
+  });
+  const styles = StyleSheet.create({
+    modalContainer: {
+      flex: 1,
+      justifyContent: "flex-end",
+      backgroundColor: "rgba(0,0,0,0.7)",
+    },
+    modalCheckoutContainer: {
+      backgroundColor: "white",
+      padding: 16,
+      height: 500,
+      borderWidth: 1,
+    },
+    modalCheckoutButton: {
+      textAlign: "center",
+      fontWeight: "600",
+      fontSize: 18,
+      marginBottom: 10,
+    },
+    subtotalContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginTop: 15,
+    },
+    subTotalText: {
+      textAlign: "left",
+      fontWeight: "600",
+      fontSize: 15,
+      marginBottom: 10,
+    },
   });
   // console.log(totalUSD);
   const checkoutModalContent = () => {
