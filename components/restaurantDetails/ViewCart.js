@@ -3,9 +3,10 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
 import firebase from "../../lib/firebase";
-
+import LottieView from "lottie-react-native";
 export default function ViewCart({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
   );
@@ -18,13 +19,20 @@ export default function ViewCart({ navigation }) {
     currency: "USD",
   });
   const addOrderToFireBase = () => {
+    setLoading(true);
     const db = firebase.firestore();
-    db.collection("orders").add({
-      items: items,
-      restaurantName: restaurantName,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    navigation.navigate("OrderCompleted");
+    db.collection("orders")
+      .add({
+        items: items,
+        restaurantName: restaurantName,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() =>
+        setTimeout(() => {
+          setLoading(true);
+          navigation.navigate("OrderCompleted");
+        }, 2500)
+      );
   };
 
   const styles = StyleSheet.create({
@@ -162,6 +170,29 @@ export default function ViewCart({ navigation }) {
               <Text style={{ color: "white", fontSize: 20 }}>{totalUSD}$</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      ) : (
+        <></>
+      )}
+      {loading ? (
+        <View
+          style={{
+            backgroundColor: "black",
+            position: "absolute",
+            opacity: 0.6,
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+            zIndex: 999,
+          }}
+        >
+          <LottieView
+            style={{ height: 200 }}
+            source={require("../../assets/animations/scanner.json")}
+            autoPlay
+            speed={3}
+          />
         </View>
       ) : (
         <></>
