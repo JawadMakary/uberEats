@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
+import OrderItem from "./OrderItem";
 
 export default function ViewCart() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,7 +28,7 @@ export default function ViewCart() {
       height: 500,
       borderWidth: 1,
     },
-    modalCheckoutButton: {
+    restaurantName: {
       textAlign: "center",
       fontWeight: "600",
       fontSize: 18,
@@ -48,28 +49,47 @@ export default function ViewCart() {
   // console.log(totalUSD);
   const checkoutModalContent = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 30,
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: "black",
-            padding: 10,
-            borderRadius: 30,
-            width: 150,
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <Text style={{ color: "white" }}>Checkout</Text>
-          </TouchableOpacity>
+      <>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalCheckoutContainer}>
+            <Text style={styles.restaurantName}>{restaurantName}</Text>
+            {items.map((item, index) => (
+              <OrderItem key={index} item={item} />
+            ))}
+            <View style={styles.subtotalContainer}>
+              <Text style={styles.subTotalText}>Subtotal</Text>
+              <Text>{totalUSD}</Text>
+            </View>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <TouchableOpacity
+                style={{
+                  marginTop: 20,
+                  backgroundColor: "black",
+                  alignItems: "center",
+                  padding: 13,
+                  borderRadius: 30,
+                  width: 300,
+                  position: "relative",
+                }}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={{ color: "#fff", fontSize: 20 }}>Checkout</Text>
+                <Text
+                  style={{
+                    position: "absolute",
+                    color: "#fff",
+                    right: 20,
+                    fontSize: 15,
+                    top: 17,
+                  }}
+                >
+                  {total ? totalUSD : ""}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </>
     );
   };
   return (
