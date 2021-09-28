@@ -4,7 +4,6 @@ import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
 const foods = [
   {
     title: "Lasagna",
